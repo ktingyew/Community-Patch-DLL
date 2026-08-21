@@ -1071,6 +1071,7 @@ public:
 	void setInstantYieldText(InstantYieldType iType, const CvString& strInstantYield);
 	CvString getInstantYieldText(InstantYieldType iType)  const;
 	void doInstantGWAM(GreatPersonTypes eGreatPerson, const CvString& strName, bool bConquest = false);
+	void doInstantGEMS(const CvString& strName); // France UA: GEMS (Engineer/Merchant/Scientist) points on city conquest
 	void doPolicyGEorGM(int iPolicyGEorGM);
 	void doInstantGreatPersonProgress(InstantYieldType iType, bool bSuppress = false, CvCity* pCity = NULL, BuildingTypes eBuilding = NO_BUILDING, int iPassValue = 0, GreatPersonTypes ePassGreatPerson = NO_GREATPERSON);
 	void addInstantGreatPersonProgressText(InstantYieldType iType, const CvString& strInstantYield);

@@ -3414,72 +3414,43 @@ CvCity* CvPlayer::acquireCity(CvCity* pCity, bool bConquest, bool bGift, bool bO
 					changeGoldenAgeTurns(getGoldenAgeLength(5));
 			}
 
-			// Culture bonus turns from conquering a city?
+			// STEM twist (France UA): instant Science windfall from conquering a city.
+			// Repurposes the dormant CultureBonusModifierConquest column as the magnitude (a % of the conquered city's population).
 			if (GetPlayerTraits()->GetCultureBonusModifierConquest() > 0)
 			{
-				int iTurns = ((iPopulation / 2) * GC.getGame().getGameSpeedInfo().getInstantYieldPercent()) / 100;
-				if (iTurns > 0)
+				int iScience = max(1, iPopulation * GetPlayerTraits()->GetCultureBonusModifierConquest() / 100);
+				iScience *= max(1, (int)GetCurrentEra());
+				iScience = (iScience * GC.getGame().getGameSpeedInfo().getInstantYieldPercent()) / 100;
+				if (iScience > 0)
 				{
-					ChangeCultureBonusTurnsConquest(iTurns);
+					// bSuppress = true (9th arg): apply the yield but skip the generic popup (its text is bully-flavored, wrong for France).
+					doInstantYield(INSTANT_YIELD_TYPE_BULLY, false, NO_GREATPERSON, NO_BUILDING, iScience, false, NO_PLAYER, NULL, true, getCapitalCity(), false, true, false, YIELD_SCIENCE, NULL, NO_TERRAIN, NULL, pCity);
 
-					if (GetID() == GC.getGame().getActivePlayer())
-					{
-						Localization::String strMessage = Localization::Lookup("TXT_KEY_CULTURE_BOOST_ART");
-						strMessage << iTurns;
-						strMessage << pCity->getNameKey();
-						strMessage << GetPlayerTraits()->GetCultureBonusModifierConquest();
-						Localization::String strSummary = Localization::Lookup("TXT_KEY_CULTURE_BOOST_ART_SUMMARY");
-
-						CvNotifications* pNotify = GetNotifications();
-						if (pNotify)
-						{
-							pNotify->Add(NOTIFICATION_GENERIC, strMessage.toUTF8(), strSummary.toUTF8(), iCityX, iCityY, pCity->GetID(), GetID());
-						}
-					}
 					if (GC.getLogging() && GC.getAILogging())
 					{
-						CvGameCulture *pCulture = GC.getGame().GetGameCulture();
-						if (pCulture)
-						{
-							CvString strLogString;
-							strLogString.Format("Conquest culture boost: %d", iTurns);
-							GetHomelandAI()->LogHomelandMessage(strLogString);
-						}
+						CvString strLogString;
+						strLogString.Format("Conquest science windfall: %d", iScience);
+						GetHomelandAI()->LogHomelandMessage(strLogString);
 					}
 				}
 			}
 
-			// Production bonus turns from conquering a city?
+			// STEM twist (France UA): instant Gold windfall from conquering a city.
+			// Repurposes the dormant ProductionBonusModifierConquest column as the magnitude (a % of the conquered city's population).
 			if (GetPlayerTraits()->GetProductionBonusModifierConquest() > 0)
 			{
-				int iTurns = ((iPopulation / 2) * GC.getGame().getGameSpeedInfo().getInstantYieldPercent()) / 100;
-				if (iTurns > 0)
+				int iGold = max(1, iPopulation * GetPlayerTraits()->GetProductionBonusModifierConquest() / 100);
+				iGold *= max(1, (int)GetCurrentEra());
+				iGold = (iGold * GC.getGame().getGameSpeedInfo().getInstantYieldPercent()) / 100;
+				if (iGold > 0)
 				{
-					ChangeProductionBonusTurnsConquest(iTurns);
+					doInstantYield(INSTANT_YIELD_TYPE_BULLY, false, NO_GREATPERSON, NO_BUILDING, iGold, false, NO_PLAYER, NULL, true, getCapitalCity(), false, true, false, YIELD_GOLD, NULL, NO_TERRAIN, NULL, pCity);
 
-					if (GetID() == GC.getGame().getActivePlayer())
-					{
-						Localization::String strMessage = Localization::Lookup("TXT_KEY_PRODUCTION_BOOST_ART");
-						strMessage << iTurns;
-						strMessage << pCity->getNameKey();
-						strMessage << GetPlayerTraits()->GetProductionBonusModifierConquest();
-						Localization::String strSummary = Localization::Lookup("TXT_KEY_PRODUCTION_BOOST_ART_SUMMARY");
-
-						CvNotifications* pNotify = GetNotifications();
-						if (pNotify)
-						{
-							pNotify->Add(NOTIFICATION_GENERIC, strMessage.toUTF8(), strSummary.toUTF8(), iCityX, iCityY, pCity->GetID(), GetID());
-						}
-					}
 					if (GC.getLogging() && GC.getAILogging())
 					{
-						CvGameCulture *pCulture = GC.getGame().GetGameCulture();
-						if (pCulture)
-						{
-							CvString strLogString;
-							strLogString.Format("Conquest production boost: %d", iTurns);
-							GetHomelandAI()->LogHomelandMessage(strLogString);
-						}
+						CvString strLogString;
+						strLogString.Format("Conquest gold windfall: %d", iGold);
+						GetHomelandAI()->LogHomelandMessage(strLogString);
 					}
 				}
 			}
@@ -3490,10 +3461,10 @@ CvCity* CvPlayer::acquireCity(CvCity* pCity, bool bConquest, bool bGift, bool bO
 				DoFreeGreatWorkOnConquest(pCity);
 			}
 
-			// Great Writer, Artist and Musician points from conquering a city?
+			// Great Engineer, Merchant and Scientist (GEMS) points from conquering a city? (France UA STEM twist)
 			if (GetPlayerTraits()->GetCityConquestGWAM() > 0)
 			{
-				doInstantGWAM(NO_GREATPERSON, pCity->getName(), true);
+				doInstantGEMS(pCity->getName());
 			}
 
 			// We Love the King Day in all cities from conquering a city?
@@ -28230,6 +28201,78 @@ void CvPlayer::doInstantGWAM(GreatPersonTypes eGreatPerson, const CvString& strN
 					strSummary = Localization::Lookup("TXT_KEY_TOURISM_EVENT_GWAM_BONUS_CONQUEST_S");
 				else
 					strSummary = Localization::Lookup("TXT_KEY_TOURISM_EVENT_GWAM_BONUS_SAKOKU_S");
+
+				pNotification->Add(NOTIFICATION_GOLDEN_AGE_BEGUN_ACTIVE_PLAYER, strMessage.toUTF8(), strSummary.toUTF8(), -1, -1, -1);
+			}
+		}
+	}
+}
+// France UA STEM twist: grant Great Engineer/Merchant/Scientist (GEMS) progress in the capital on city conquest.
+// Sibling of doInstantGWAM's conquest branch, but targets the STEM great people instead of Writer/Artist/Musician.
+// The magnitude (% of each specialist's upgrade threshold) comes from the CityConquestGWAM trait column.
+void CvPlayer::doInstantGEMS(const CvString& strName)
+{
+	CvCity* pCapital = getCapitalCity();
+	int iEventGP = GetPlayerTraits()->GetCityConquestGWAM();
+
+	if (pCapital != NULL && iEventGP > 0)
+	{
+		int iGPEngineer = 0;
+		int iGPMerchant = 0;
+		int iGPScientist = 0;
+		for (int iSpecialistLoop = 0; iSpecialistLoop < GC.getNumSpecialistInfos(); iSpecialistLoop++)
+		{
+			const SpecialistTypes eSpecialist = static_cast<SpecialistTypes>(iSpecialistLoop);
+			CvSpecialistInfo* pkSpecialistInfo = GC.getSpecialistInfo(eSpecialist);
+			if (pkSpecialistInfo)
+			{
+				if ((UnitClassTypes)pkSpecialistInfo->getGreatPeopleUnitClass() == GC.getInfoTypeForString("UNITCLASS_ENGINEER"))
+				{
+					iGPEngineer = pCapital->GetCityCitizens()->GetSpecialistUpgradeThreshold((UnitClassTypes)pkSpecialistInfo->getGreatPeopleUnitClass());
+					iGPEngineer *= 100;
+					//Get % of threshold.
+					iGPEngineer *= iEventGP;
+					iGPEngineer /= 100;
+
+					pCapital->GetCityCitizens()->ChangeSpecialistGreatPersonProgressTimes100(eSpecialist, iGPEngineer, true);
+				}
+				if ((UnitClassTypes)pkSpecialistInfo->getGreatPeopleUnitClass() == GC.getInfoTypeForString("UNITCLASS_MERCHANT"))
+				{
+					iGPMerchant = pCapital->GetCityCitizens()->GetSpecialistUpgradeThreshold((UnitClassTypes)pkSpecialistInfo->getGreatPeopleUnitClass());
+					iGPMerchant *= 100;
+					//Get % of threshold.
+					iGPMerchant *= iEventGP;
+					iGPMerchant /= 100;
+
+					pCapital->GetCityCitizens()->ChangeSpecialistGreatPersonProgressTimes100(eSpecialist, iGPMerchant, true);
+				}
+				if ((UnitClassTypes)pkSpecialistInfo->getGreatPeopleUnitClass() == GC.getInfoTypeForString("UNITCLASS_SCIENTIST"))
+				{
+					iGPScientist = pCapital->GetCityCitizens()->GetSpecialistUpgradeThreshold((UnitClassTypes)pkSpecialistInfo->getGreatPeopleUnitClass());
+					iGPScientist *= 100;
+					//Get % of threshold.
+					iGPScientist *= iEventGP;
+					iGPScientist /= 100;
+
+					pCapital->GetCityCitizens()->ChangeSpecialistGreatPersonProgressTimes100(eSpecialist, iGPScientist, true);
+				}
+			}
+		}
+		if (GetID() == GC.getGame().getActivePlayer())
+		{
+			iGPEngineer /= 100;
+			iGPMerchant /= 100;
+			iGPScientist /= 100;
+			CvNotifications* pNotification = GetNotifications();
+			if (pNotification)
+			{
+				Localization::String strMessage = Localization::Lookup("TXT_KEY_TOURISM_EVENT_GEMS_BONUS_CONQUEST");
+				strMessage << iGPEngineer;
+				strMessage << iGPMerchant;
+				strMessage << iGPScientist;
+				strMessage << strName.c_str();
+
+				Localization::String strSummary = Localization::Lookup("TXT_KEY_TOURISM_EVENT_GEMS_BONUS_CONQUEST_S");
 
 				pNotification->Add(NOTIFICATION_GOLDEN_AGE_BEGUN_ACTIVE_PLAYER, strMessage.toUTF8(), strSummary.toUTF8(), -1, -1, -1);
 			}
