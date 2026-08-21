@@ -1,23 +1,20 @@
 ----------------------------------------------------------
--- Unique Ability: La Grande Armée
+-- Unique Ability: L'Académie (STEM twist on the classic France UA)
+--   * +10% Combat Strength for each subsequent attack against a single target this turn (MultipleAttackBonus).
+--   * On city conquest: progress toward Great Engineers/Merchants/Scientists in the Capital (CityConquestGWAM,
+--     reinterpreted as GEMS in the DLL), plus an instant Science + Gold windfall scaling with the conquered
+--     city's population (CultureBonusModifierConquest -> Science %, ProductionBonusModifierConquest -> Gold %).
+-- NOTE: these last three columns are wired to STEM effects in the DLL (see CvPlayer::doInstantGEMS and the
+-- conquest handler in CvPlayer.cpp). Requires the matching self-built CvGameCore_Expansion2.dll.
 ----------------------------------------------------------
 UPDATE Traits
 SET
 	CapitalThemingBonusModifier = 0,
-	ExtraSupplyPerPopulation = 15
+	MultipleAttackBonus = 10,
+	CityConquestGWAM = 50,
+	CultureBonusModifierConquest = 500,
+	ProductionBonusModifierConquest = 500
 WHERE Type = 'TRAIT_ENHANCED_CULTURE';
-
-INSERT INTO Trait_FreePromotionUnitCombats
-	(TraitType, UnitCombatType, PromotionType)
-VALUES
-	('TRAIT_ENHANCED_CULTURE', 'UNITCOMBAT_MELEE', 'PROMOTION_COERCION'),
-	('TRAIT_ENHANCED_CULTURE', 'UNITCOMBAT_GUN', 'PROMOTION_COERCION');
-
-INSERT INTO Trait_YieldFromXMilitaryUnits
-	(TraitType, YieldType, Yield)
-VALUES
-	('TRAIT_ENHANCED_CULTURE', 'YIELD_CULTURE', 10),
-	('TRAIT_ENHANCED_CULTURE', 'YIELD_TOURISM', 10);
 
 ----------------------------------------------------------
 -- Unique Unit: Musketeer (Tercio)
