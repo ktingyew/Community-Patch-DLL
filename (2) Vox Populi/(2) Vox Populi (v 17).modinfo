@@ -1331,6 +1331,7 @@
     <File md5="92229C5ACAA6013A3CF7D150F17E0020" import="0">Database Changes/Units/PolicyUnitChanges.sql</File>
     <File md5="C3786E076D5E131E5DFE1AD56F59ABF0" import="0">Database Changes/Units/PreUnitChanges.sql</File>
     <File md5="C62B5CFA10CC761F0005EAA27C0380B5" import="0">Database Changes/Units/UnitAIChanges.sql</File>
+    <File md5="E44C7E72C4FB74D6A211FB40E64B8B39" import="0">Database Changes/Personal/ArchaeologistUnlimited.sql</File>
     <File md5="74D847CA45A12FA512B04BAFA6484AE1" import="0">Database Changes/Units/UnitChanges.sql</File>
     <File md5="29172E74A4062AE0B417B138E36C62A1" import="0">Database Changes/Units/UnitChanges2.sql</File>
     <File md5="047951A003CF172F38D858EEC308EE38" import="0">Database Changes/Units/UnitCostSweeps.sql</File>
@@ -1653,6 +1654,7 @@
       <UpdateDatabase>Database Changes/Text/en_US/WorldMap/RouteTextChanges.sql</UpdateDatabase>
       <UpdateDatabase>Database Changes/Text/en_US/WorldMap/TerrainTextChanges.sql</UpdateDatabase>
       <UpdateDatabase>Database Changes/Triggers.sql</UpdateDatabase>
+      <UpdateDatabase>Database Changes/Personal/ArchaeologistUnlimited.sql</UpdateDatabase>
     </OnModActivated>
   </Actions>
   <EntryPoints>
