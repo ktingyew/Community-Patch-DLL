@@ -647,6 +647,14 @@ void CvBarbarians::DoCamps()
 	int iBarbCampMinDistance = /*4*/ GD_INT_GET(BARBARIAN_CAMP_MINIMUM_DISTANCE_ANOTHER_CAMP);
 	int iRecentlyClearedCampMinDistance = /*2*/ GD_INT_GET(BARBARIAN_CAMP_MINIMUM_DISTANCE_RECENTLY_CLEARED_CAMP);
 	int iEra = GC.getGame().getCurrentEra();
+
+	// Personal tweak: stop placing brand new camps once the Industrial Era hits. Existing camps/cities
+	// (handled unconditionally in the plot loop below) keep spawning units as normal - this only
+	// suppresses iNumCampsToAdd, which feeds the new-camp placement logic further down.
+	static EraTypes eIndustrialEra = (EraTypes)GC.getInfoTypeForString("ERA_INDUSTRIAL", true /*bHideAssert*/);
+	if (eIndustrialEra != NO_ERA && iEra >= eIndustrialEra)
+		iNumCampsToAdd = 0;
+
 	std::vector<CvPlot*> vPotentialPlots,vPotentialCoastalPlots;
 	std::vector<int> MajorCapitals,BarbCamps,RecentlyClearedBarbCamps;
 	static ImprovementTypes eLandmark = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_LANDMARK");
