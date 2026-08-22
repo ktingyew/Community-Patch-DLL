@@ -647,6 +647,26 @@ void CvBarbarians::DoCamps()
 	int iBarbCampMinDistance = /*4*/ GD_INT_GET(BARBARIAN_CAMP_MINIMUM_DISTANCE_ANOTHER_CAMP);
 	int iRecentlyClearedCampMinDistance = /*2*/ GD_INT_GET(BARBARIAN_CAMP_MINIMUM_DISTANCE_RECENTLY_CLEARED_CAMP);
 	int iEra = GC.getGame().getCurrentEra();
+
+	// Personal tweak: stop placing brand new camps once ANY living major civ has reached the Industrial Era.
+	// Deliberately not GC.getGame().getCurrentEra() - that is the rounded AVERAGE era of all majors, so a
+	// tech leader would keep seeing fresh camps until the mid-pack civs caught up. Existing camps/cities
+	// (handled unconditionally in the plot loop below) keep spawning units as normal - this only
+	// suppresses iNumCampsToAdd, which feeds the new-camp placement logic further down.
+	static EraTypes eIndustrialEra = (EraTypes)GC.getInfoTypeForString("ERA_INDUSTRIAL", true /*bHideAssert*/);
+	if (eIndustrialEra != NO_ERA)
+	{
+		for (int iTeam = 0; iTeam < MAX_TEAMS; iTeam++)
+		{
+			CvTeam& kTeam = GET_TEAM((TeamTypes)iTeam);
+			if (kTeam.isAlive() && kTeam.isMajorCiv() && kTeam.GetCurrentEra() >= eIndustrialEra)
+			{
+				iNumCampsToAdd = 0;
+				break;
+			}
+		}
+	}
+
 	std::vector<CvPlot*> vPotentialPlots,vPotentialCoastalPlots;
 	std::vector<int> MajorCapitals,BarbCamps,RecentlyClearedBarbCamps;
 	static ImprovementTypes eLandmark = (ImprovementTypes)GC.getInfoTypeForString("IMPROVEMENT_LANDMARK");
