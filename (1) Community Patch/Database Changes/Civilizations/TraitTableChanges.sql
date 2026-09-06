@@ -279,6 +279,9 @@ ALTER TABLE Traits ADD SpyMoveRateModifier integer DEFAULT 0;
 -- GWAM from conquest
 ALTER TABLE Traits ADD CityConquestGWAM integer DEFAULT 0;
 
+-- Free Great People (player's choice, like Tower of Pisa) from conquering a city for the first time
+ALTER TABLE Traits ADD FreeGreatPeopleOnConquest integer DEFAULT 0;
+
 -- Shared religion tourism modifier, same as the one for policies
 ALTER TABLE Traits ADD SharedReligionTourismModifier integer DEFAULT 0;
 

@@ -113,6 +113,7 @@ CvTraitEntry::CvTraitEntry() :
 	m_iInfluenceMeetCS(0),
 	m_iMultipleAttackBonus(0),
 	m_iCityConquestGWAM(0),
+	m_iFreeGreatPeopleOnConquest(0),
 	m_iEventTourismBoost(0),
 	m_iReligionSpreadTourism(0),
 	m_iEventGP(0),
@@ -847,6 +848,11 @@ int CvTraitEntry::GetMultipleAttackBonus() const
 int CvTraitEntry::GetCityConquestGWAM() const
 {
 	return m_iCityConquestGWAM;
+}
+/// Accessor:: number of free Great People (player's choice) granted on first-time city conquest
+int CvTraitEntry::GetFreeGreatPeopleOnConquest() const
+{
+	return m_iFreeGreatPeopleOnConquest;
 }
 int CvTraitEntry::GetEventTourismBoost() const
 {
@@ -2429,6 +2435,7 @@ bool CvTraitEntry::CacheResults(Database::Results& kResults, CvDatabaseUtility& 
 	m_iGoldToGAP							= kResults.GetInt("GoldToGAP");
 	m_iMultipleAttackBonus					= kResults.GetInt("MultipleAttackBonus");
 	m_iCityConquestGWAM						= kResults.GetInt("CityConquestGWAM");
+	m_iFreeGreatPeopleOnConquest			= kResults.GetInt("FreeGreatPeopleOnConquest");
 	m_iEventTourismBoost					= kResults.GetInt("EventTourismBoost");
 	m_iReligionSpreadTourism				= kResults.GetInt("ReligionSpreadTourism");
 	m_iEventGP								= kResults.GetInt("EventGP");
@@ -3910,6 +3917,7 @@ void CvPlayerTraits::SetIsWarmonger()
 		GetBullyValueModifier() > 0 ||
 		GetMultipleAttackBonus() > 0 ||
 		GetCityConquestGWAM() > 0 ||
+		GetFreeGreatPeopleOnConquest() > 0 ||
 		GetLandUnitMaintenanceModifier() < 0 ||
 		GetNavalUnitMaintenanceModifier() < 0 ||
 		GetProductionBonusModifierConquest() > 0 ||
@@ -4581,6 +4589,7 @@ void CvPlayerTraits::InitPlayerTraits()
 			m_iInfluenceMeetCS += trait->GetInfluenceMeetCS();
 			m_iMultipleAttackBonus += trait->GetMultipleAttackBonus();
 			m_iCityConquestGWAM += trait->GetCityConquestGWAM();
+			m_iFreeGreatPeopleOnConquest += trait->GetFreeGreatPeopleOnConquest();
 			m_iEventTourismBoost += trait->GetEventTourismBoost();
 			m_iReligionSpreadTourism += trait->GetReligionSpreadTourism();
 			m_iGrowthBoon += trait->GetGrowthBoon();		
@@ -5412,6 +5421,7 @@ void CvPlayerTraits::Reset()
 	m_iInfluenceMeetCS = 0;
 	m_iMultipleAttackBonus = 0;
 	m_iCityConquestGWAM = 0;
+	m_iFreeGreatPeopleOnConquest = 0;
 	m_iEventTourismBoost = 0;
 	m_iReligionSpreadTourism = 0;
 	m_iWonderProductionModifierToBuilding = 0;
@@ -7635,6 +7645,7 @@ void CvPlayerTraits::Serialize(PlayerTraits& playerTraits, Visitor& visitor)
 	visitor(playerTraits.m_iInfluenceMeetCS);
 	visitor(playerTraits.m_iMultipleAttackBonus);
 	visitor(playerTraits.m_iCityConquestGWAM);
+	visitor(playerTraits.m_iFreeGreatPeopleOnConquest);
 	visitor(playerTraits.m_iEventTourismBoost);
 	visitor(playerTraits.m_iReligionSpreadTourism);
 	visitor(playerTraits.m_iEventGP);

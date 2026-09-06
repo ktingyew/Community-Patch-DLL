@@ -189,6 +189,7 @@ public:
 	int GetInfluenceMeetCS() const;
 	int GetMultipleAttackBonus() const;
 	int GetCityConquestGWAM() const;
+	int GetFreeGreatPeopleOnConquest() const;
 	int GetEventTourismBoost() const;
 	int GetReligionSpreadTourism() const;
 	int GetEventGP() const;
@@ -541,6 +542,7 @@ protected:
 	int m_iInfluenceMeetCS;
 	int m_iMultipleAttackBonus;
 	int m_iCityConquestGWAM;
+	int m_iFreeGreatPeopleOnConquest;
 	int m_iEventTourismBoost;
 	int m_iReligionSpreadTourism;
 	int m_iEventGP;
@@ -1204,6 +1206,10 @@ public:
 	int GetCityConquestGWAM() const
 	{
 		return m_iCityConquestGWAM;
+	};
+	int GetFreeGreatPeopleOnConquest() const
+	{
+		return m_iFreeGreatPeopleOnConquest;
 	};
 	int GetEventTourismBoost() const
 	{
@@ -2153,6 +2159,7 @@ private:
 	int m_iInfluenceMeetCS;
 	int m_iMultipleAttackBonus;
 	int m_iCityConquestGWAM;
+	int m_iFreeGreatPeopleOnConquest;
 	int m_iEventTourismBoost;
 	int m_iReligionSpreadTourism;
 	int m_iWLTKDGPImprovementModifier;

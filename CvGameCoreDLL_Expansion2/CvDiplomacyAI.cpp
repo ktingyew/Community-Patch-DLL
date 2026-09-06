@@ -25427,6 +25427,7 @@ void CvDiplomacyAI::DoUpdatePeaceTreatyWillingness(bool bMyTurn)
 		// Assyria, Japan, Indonesia, The Aztecs, Nuclear Gandhi, and anyone who keeps conquered buildings will prolong wars longer if they are winning and the enemy's cities are in danger from them.
 		bUABonusesFromCityConquest = pTraits->IsTechFromCityConquer();
 		bUABonusesFromCityConquest |= pTraits->GetCityConquestGWAM() > 0;
+		bUABonusesFromCityConquest |= pTraits->GetFreeGreatPeopleOnConquest() > 0;
 		bUABonusesFromCityConquest |= pTraits->GetUniqueLuxuryQuantity() > 0;
 		bUABonusesFromCityConquest |= pTraits->GetGoldenAgeFromVictory() > 0;
 		bUABonusesFromCityConquest |= pTraits->IsKeepConqueredBuildings() || GetPlayer()->IsKeepConqueredBuildings();

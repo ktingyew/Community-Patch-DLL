@@ -596,5 +596,11 @@
 		<Row Tag="TXT_KEY_NOTIFICATION_MINOR_CITY_YIELDS_CAPITAL">
 			<Text>[NEWLINE]The [ICON_CAPITAL] Capital further contributes {1_YieldList}.</Text>
 		</Row>
+		<Row Tag="TXT_KEY_NOTIFICATION_FREE_GREAT_PERSON_CONQUEST">
+			<Text>The conquest of {1_CityName} has earned you a free [ICON_GREAT_PEOPLE] Great Person of your choice!</Text>
+		</Row>
+		<Row Tag="TXT_KEY_NOTIFICATION_FREE_GREAT_PERSON_CONQUEST_S">
+			<Text>Aux grands hommes la patrie reconnaissante</Text>
+		</Row>
 	</Language_en_US>
 </GameData>

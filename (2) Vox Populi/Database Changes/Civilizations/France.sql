@@ -1,23 +1,20 @@
 ----------------------------------------------------------
--- Unique Ability: La Grande Armée
+-- Unique Ability: Le Panthéon (kty-feat: classic pre-3.8.3 France UA, with a free Great Person choice)
+--   * +10% Combat Strength for each subsequent attack against a single target this turn (MultipleAttackBonus).
+--   * On conquering a City for the first time: choose ANY free Great Person (FreeGreatPeopleOnConquest,
+--     same mechanism as Tower of Pisa), plus the classic temporary +40% Culture and Production in all Cities
+--     for (Population / 2) turns (CultureBonusModifierConquest / ProductionBonusModifierConquest).
+-- NOTE: FreeGreatPeopleOnConquest is a new Traits column wired in the DLL (CvPlayer::acquireCity).
+-- Requires the matching self-built CvGameCore_Expansion2.dll.
 ----------------------------------------------------------
 UPDATE Traits
 SET
 	CapitalThemingBonusModifier = 0,
-	ExtraSupplyPerPopulation = 15
+	MultipleAttackBonus = 10,
+	FreeGreatPeopleOnConquest = 1,
+	CultureBonusModifierConquest = 40,
+	ProductionBonusModifierConquest = 40
 WHERE Type = 'TRAIT_ENHANCED_CULTURE';
-
-INSERT INTO Trait_FreePromotionUnitCombats
-	(TraitType, UnitCombatType, PromotionType)
-VALUES
-	('TRAIT_ENHANCED_CULTURE', 'UNITCOMBAT_MELEE', 'PROMOTION_COERCION'),
-	('TRAIT_ENHANCED_CULTURE', 'UNITCOMBAT_GUN', 'PROMOTION_COERCION');
-
-INSERT INTO Trait_YieldFromXMilitaryUnits
-	(TraitType, YieldType, Yield)
-VALUES
-	('TRAIT_ENHANCED_CULTURE', 'YIELD_CULTURE', 10),
-	('TRAIT_ENHANCED_CULTURE', 'YIELD_TOURISM', 10);
 
 ----------------------------------------------------------
 -- Unique Unit: Musketeer (Tercio)

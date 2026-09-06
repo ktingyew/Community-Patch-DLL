@@ -3496,6 +3496,25 @@ CvCity* CvPlayer::acquireCity(CvCity* pCity, bool bConquest, bool bGift, bool bO
 				doInstantGWAM(NO_GREATPERSON, pCity->getName(), true);
 			}
 
+			// Free Great Person of the player's choice from conquering a city for the first time? (kty-feat, France UA)
+			if (GetPlayerTraits()->GetFreeGreatPeopleOnConquest() > 0)
+			{
+				ChangeNumFreeGreatPeople(GetPlayerTraits()->GetFreeGreatPeopleOnConquest());
+
+				if (GetID() == GC.getGame().getActivePlayer())
+				{
+					Localization::String strMessage = Localization::Lookup("TXT_KEY_NOTIFICATION_FREE_GREAT_PERSON_CONQUEST");
+					strMessage << pCity->getNameKey();
+					Localization::String strSummary = Localization::Lookup("TXT_KEY_NOTIFICATION_FREE_GREAT_PERSON_CONQUEST_S");
+
+					CvNotifications* pNotify = GetNotifications();
+					if (pNotify)
+					{
+						pNotify->Add(NOTIFICATION_GENERIC, strMessage.toUTF8(), strSummary.toUTF8(), iCityX, iCityY, pCity->GetID(), GetID());
+					}
+				}
+			}
+
 			// We Love the King Day in all cities from conquering a city?
 			if (GetPlayerTraits()->IsExpansionWLTKD())
 			{

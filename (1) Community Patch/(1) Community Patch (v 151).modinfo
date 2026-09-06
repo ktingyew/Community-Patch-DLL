@@ -568,7 +568,7 @@
     <File md5="101E010B7D16659BF005BA6495043845" import="0">Database Changes/Civilizations/CivilizationTableChanges.sql</File>
     <File md5="C146C925E79385332D65E4120BC083F9" import="0">Database Changes/Civilizations/NewTraitTables.xml</File>
     <File md5="B8E4A895B6899E3E8D0D6D86C0A71A04" import="0">Database Changes/Civilizations/TraitChanges.sql</File>
-    <File md5="C892BD96A4E2CA8F964A40276F82CBB8" import="0">Database Changes/Civilizations/TraitTableChanges.sql</File>
+    <File md5="3CF1972D99CA39099D07655FB6F440DD" import="0">Database Changes/Civilizations/TraitTableChanges.sql</File>
     <File md5="DAC8C8CD7C77EBB45FA08B9C4EC27690" import="0">Database Changes/Concepts/ConceptTableChanges.sql</File>
     <File md5="37E48ED89CFEBAC31E1DFFCA1087CF4D" import="0">Database Changes/Concepts/CoreConceptChanges.sql</File>
     <File md5="5AFB377345571BA35644B7880D3CF0BC" import="0">Database Changes/Concepts/CoreNewConcepts.xml</File>
