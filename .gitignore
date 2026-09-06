@@ -36,6 +36,7 @@
 !*.mp3
 !*.natvis
 !*.py
+!*.ps1
 !*.rc
 !*.rtf
 !*.sh
