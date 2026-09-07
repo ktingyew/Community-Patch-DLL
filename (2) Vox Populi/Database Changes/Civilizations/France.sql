@@ -1,6 +1,6 @@
 ----------------------------------------------------------
 -- Unique Ability: Le Panthéon (kty-feat: classic pre-3.8.3 France UA, with a free Great Person choice)
---   * +10% Combat Strength for each subsequent attack against a single target this turn (MultipleAttackBonus).
+--   * +15% Combat Strength for each subsequent attack against a single target this turn (MultipleAttackBonus).
 --   * On conquering a City for the first time: choose ANY free Great Person (FreeGreatPeopleOnConquest,
 --     same mechanism as Tower of Pisa).
 -- NOTE: FreeGreatPeopleOnConquest is a new Traits column wired in the DLL (CvPlayer::acquireCity).
@@ -9,7 +9,7 @@
 UPDATE Traits
 SET
 	CapitalThemingBonusModifier = 0,
-	MultipleAttackBonus = 10,
+	MultipleAttackBonus = 15,
 	FreeGreatPeopleOnConquest = 1
 WHERE Type = 'TRAIT_ENHANCED_CULTURE';
 

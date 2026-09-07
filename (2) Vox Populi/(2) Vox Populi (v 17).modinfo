@@ -1190,7 +1190,7 @@
     <File md5="6CB2079C911A9749807EDF08403E390D" import="0">Database Changes/Civilizations/Egypt.sql</File>
     <File md5="A2F9A6DF1EB4271918C7BB309EE68A1E" import="0">Database Changes/Civilizations/England.sql</File>
     <File md5="F8B25823894F8BB37C7F83941EB5F7FB" import="0">Database Changes/Civilizations/Ethiopia.sql</File>
-    <File md5="5C14DD6EF5EC93E5FA950606D9CC1564" import="0">Database Changes/Civilizations/France.sql</File>
+    <File md5="A0DC0EC2832E0C1A0720E45DDF1852F4" import="0">Database Changes/Civilizations/France.sql</File>
     <File md5="DD993EA547FA14CDB71E5A3AD1F049E8" import="0">Database Changes/Civilizations/Germany.sql</File>
     <File md5="D96A6B1604BC03E40DA879DA6017EFA6" import="0">Database Changes/Civilizations/Greece.sql</File>
     <File md5="9419AB7223E4AA2ECB74A0021C8F42E3" import="0">Database Changes/Civilizations/Huns.sql</File>
@@ -1275,7 +1275,7 @@
     <File md5="1C7DE8D3EFB10BFAFDCF7E3804E3CECB" import="0">Database Changes/Text/en_US/City/ProcessTextChanges.sql</File>
     <File md5="0238F4CE191069DD34CA219B95347542" import="0">Database Changes/Text/en_US/City/ProjectTextChanges.sql</File>
     <File md5="B98B12751887ADF4F191AAB5D9248321" import="0">Database Changes/Text/en_US/City/SpecialistTextChanges.sql</File>
-    <File md5="DF5C8E8ED89C6AEA6190E6FBDE1CF196" import="0">Database Changes/Text/en_US/Civilizations/CivilizationTextChanges.sql</File>
+    <File md5="BB2D6E68B8846E2563F92A1D9DEFE094" import="0">Database Changes/Text/en_US/Civilizations/CivilizationTextChanges.sql</File>
     <File md5="E41DBA82D8C5E2A0AECDC835771BF9F7" import="0">Database Changes/Text/en_US/Civilizations/NewCivilizationText.xml</File>
     <File md5="DAD9A87C3D3A0C8053EED6EECF9B6D91" import="0">Database Changes/Text/en_US/Concepts/ConceptTextChanges.sql</File>
     <File md5="30E079C9170DEF69CEDF497E92F83A7D" import="0">Database Changes/Text/en_US/Concepts/NewConceptText.xml</File>
