@@ -252,7 +252,7 @@ SET Text = 'Le Panthéon'
 WHERE Tag = 'TXT_KEY_TRAIT_ENHANCED_CULTURE_SHORT';
 
 UPDATE Language_en_US
-SET Text = '+10% [ICON_STRENGTH] Combat Strength for each subsequent attack against a single target during a turn. The first time you conquer a City, choose a free [ICON_GREAT_PEOPLE] Great Person of any type, and gain a temporary +40% [ICON_CULTURE] Culture and [ICON_PRODUCTION] Production in all Cities, scaling with the conquered City''s [ICON_CITIZEN] Population.'
+SET Text = '+10% [ICON_STRENGTH] Combat Strength for each subsequent attack against a single target during a turn. The first time you conquer a City, choose a free [ICON_GREAT_PEOPLE] Great Person of any type.'
 WHERE Tag = 'TXT_KEY_TRAIT_ENHANCED_CULTURE';
 
 UPDATE Language_en_US
